@@ -27,3 +27,17 @@ Map<String, dynamic> _$$ContentImplToJson(_$ContentImpl instance) =>
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };
+
+_$CreateContentDTOImpl _$$CreateContentDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CreateContentDTOImpl(
+      title: json['title'] as String?,
+      body: json['body'] as String?,
+    );
+
+Map<String, dynamic> _$$CreateContentDTOImplToJson(
+        _$CreateContentDTOImpl instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'body': instance.body,
+    };

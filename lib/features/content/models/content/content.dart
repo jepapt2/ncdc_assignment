@@ -4,7 +4,7 @@ part 'content.freezed.dart';
 part 'content.g.dart';
 
 @freezed
-abstract class Content with _$Content {
+class Content with _$Content {
   const factory Content({
     required int id,
     String? title,
@@ -15,4 +15,15 @@ abstract class Content with _$Content {
 
   factory Content.fromJson(Map<String, dynamic> json) =>
       _$ContentFromJson(json);
+}
+
+@freezed
+class CreateContentDTO with _$CreateContentDTO {
+  const factory CreateContentDTO({
+    String? title,
+    String? body,
+  }) = _CreateContentDTO;
+
+  factory CreateContentDTO.fromJson(Map<String, dynamic> json) =>
+      _$CreateContentDTOFromJson(json);
 }

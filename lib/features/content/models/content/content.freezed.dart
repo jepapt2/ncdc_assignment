@@ -245,3 +245,170 @@ abstract class _Content implements Content {
   _$$ContentImplCopyWith<_$ContentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+CreateContentDTO _$CreateContentDTOFromJson(Map<String, dynamic> json) {
+  return _CreateContentDTO.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateContentDTO {
+  String? get title => throw _privateConstructorUsedError;
+  String? get body => throw _privateConstructorUsedError;
+
+  /// Serializes this CreateContentDTO to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CreateContentDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CreateContentDTOCopyWith<CreateContentDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateContentDTOCopyWith<$Res> {
+  factory $CreateContentDTOCopyWith(
+          CreateContentDTO value, $Res Function(CreateContentDTO) then) =
+      _$CreateContentDTOCopyWithImpl<$Res, CreateContentDTO>;
+  @useResult
+  $Res call({String? title, String? body});
+}
+
+/// @nodoc
+class _$CreateContentDTOCopyWithImpl<$Res, $Val extends CreateContentDTO>
+    implements $CreateContentDTOCopyWith<$Res> {
+  _$CreateContentDTOCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CreateContentDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? body = freezed,
+  }) {
+    return _then(_value.copyWith(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CreateContentDTOImplCopyWith<$Res>
+    implements $CreateContentDTOCopyWith<$Res> {
+  factory _$$CreateContentDTOImplCopyWith(_$CreateContentDTOImpl value,
+          $Res Function(_$CreateContentDTOImpl) then) =
+      __$$CreateContentDTOImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? title, String? body});
+}
+
+/// @nodoc
+class __$$CreateContentDTOImplCopyWithImpl<$Res>
+    extends _$CreateContentDTOCopyWithImpl<$Res, _$CreateContentDTOImpl>
+    implements _$$CreateContentDTOImplCopyWith<$Res> {
+  __$$CreateContentDTOImplCopyWithImpl(_$CreateContentDTOImpl _value,
+      $Res Function(_$CreateContentDTOImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreateContentDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? body = freezed,
+  }) {
+    return _then(_$CreateContentDTOImpl(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CreateContentDTOImpl implements _CreateContentDTO {
+  const _$CreateContentDTOImpl({this.title, this.body});
+
+  factory _$CreateContentDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateContentDTOImplFromJson(json);
+
+  @override
+  final String? title;
+  @override
+  final String? body;
+
+  @override
+  String toString() {
+    return 'CreateContentDTO(title: $title, body: $body)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateContentDTOImpl &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.body, body) || other.body == body));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, title, body);
+
+  /// Create a copy of CreateContentDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateContentDTOImplCopyWith<_$CreateContentDTOImpl> get copyWith =>
+      __$$CreateContentDTOImplCopyWithImpl<_$CreateContentDTOImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateContentDTOImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CreateContentDTO implements CreateContentDTO {
+  const factory _CreateContentDTO({final String? title, final String? body}) =
+      _$CreateContentDTOImpl;
+
+  factory _CreateContentDTO.fromJson(Map<String, dynamic> json) =
+      _$CreateContentDTOImpl.fromJson;
+
+  @override
+  String? get title;
+  @override
+  String? get body;
+
+  /// Create a copy of CreateContentDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CreateContentDTOImplCopyWith<_$CreateContentDTOImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
