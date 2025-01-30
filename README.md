@@ -14,3 +14,4 @@
 - flutter_hooks (^0.20.5)
 - freezed (^2.5.8)
 - go_router (^14.7.2)
+- dio (^5.0.0)
