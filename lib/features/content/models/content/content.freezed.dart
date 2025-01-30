@@ -22,7 +22,7 @@ Content _$ContentFromJson(Map<String, dynamic> json) {
 mixin _$Content {
   int get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
-  String? get content => throw _privateConstructorUsedError;
+  String? get body => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $ContentCopyWith<$Res> {
   $Res call(
       {int id,
       String? title,
-      String? content,
+      String? body,
       DateTime? createdAt,
       DateTime? updatedAt});
 }
@@ -65,7 +65,7 @@ class _$ContentCopyWithImpl<$Res, $Val extends Content>
   $Res call({
     Object? id = null,
     Object? title = freezed,
-    Object? content = freezed,
+    Object? body = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -78,9 +78,9 @@ class _$ContentCopyWithImpl<$Res, $Val extends Content>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      content: freezed == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -104,7 +104,7 @@ abstract class _$$ContentImplCopyWith<$Res> implements $ContentCopyWith<$Res> {
   $Res call(
       {int id,
       String? title,
-      String? content,
+      String? body,
       DateTime? createdAt,
       DateTime? updatedAt});
 }
@@ -124,7 +124,7 @@ class __$$ContentImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = freezed,
-    Object? content = freezed,
+    Object? body = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -137,9 +137,9 @@ class __$$ContentImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      content: freezed == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -159,7 +159,7 @@ class _$ContentImpl implements _Content {
   const _$ContentImpl(
       {required this.id,
       this.title,
-      this.content,
+      this.body,
       this.createdAt,
       this.updatedAt});
 
@@ -171,7 +171,7 @@ class _$ContentImpl implements _Content {
   @override
   final String? title;
   @override
-  final String? content;
+  final String? body;
   @override
   final DateTime? createdAt;
   @override
@@ -179,7 +179,7 @@ class _$ContentImpl implements _Content {
 
   @override
   String toString() {
-    return 'Content(id: $id, title: $title, content: $content, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Content(id: $id, title: $title, body: $body, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -189,7 +189,7 @@ class _$ContentImpl implements _Content {
             other is _$ContentImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.content, content) || other.content == content) &&
+            (identical(other.body, body) || other.body == body) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -199,7 +199,7 @@ class _$ContentImpl implements _Content {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, title, content, createdAt, updatedAt);
+      Object.hash(runtimeType, id, title, body, createdAt, updatedAt);
 
   /// Create a copy of Content
   /// with the given fields replaced by the non-null parameter values.
@@ -221,7 +221,7 @@ abstract class _Content implements Content {
   const factory _Content(
       {required final int id,
       final String? title,
-      final String? content,
+      final String? body,
       final DateTime? createdAt,
       final DateTime? updatedAt}) = _$ContentImpl;
 
@@ -232,7 +232,7 @@ abstract class _Content implements Content {
   @override
   String? get title;
   @override
-  String? get content;
+  String? get body;
   @override
   DateTime? get createdAt;
   @override

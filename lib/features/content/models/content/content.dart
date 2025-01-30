@@ -8,7 +8,7 @@ class Content with _$Content {
   const factory Content({
     required int id,
     String? title,
-    String? content,
+    String? body,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Content;
