@@ -1,13 +1,24 @@
 import 'package:dio/dio.dart';
-import '../api/api_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/dio_provider/dio_provider.dart';
 
 class UseApi {
   final String basePath;
+  final Dio dio;
 
-  const UseApi(this.basePath);
+  UseApi._(this.basePath, this.dio);
 
-  String _constructFullPath(String? path) =>
-      path != null ? '$basePath/$path' : basePath;
+  factory UseApi(WidgetRef ref, String basePath) {
+    return UseApi._(basePath, ref.read(dioProvider));
+  }
+
+  String _constructFullPath(String? path) {
+    if (path == null) {
+      return basePath;
+    }
+    final sanitizedPath = Uri(path: path).toString();
+    return '$basePath/$sanitizedPath';
+  }
 
   Future<T> get<T>({
     String? path,
@@ -20,7 +31,7 @@ class UseApi {
       final data = response.data;
 
       if (data == null) {
-        throw _createResponseError(path);
+        throw _responseEmptyError(path);
       }
 
       return fromJson(data as Map<String, dynamic>);
@@ -44,12 +55,16 @@ class UseApi {
       }
 
       if (data is! List) {
-        throw _createResponseError(path);
+        throw _responseEmptyError(path);
       }
 
-      return data
-          .map((item) => fromJson(item as Map<String, dynamic>))
-          .toList();
+      for (final item in data) {
+        if (item is! Map<String, dynamic>) {
+          throw _responseEmptyError(path);
+        }
+      }
+
+      return data.map((item) => fromJson(item)).toList();
     } on DioException catch (e) {
       throw _mapDioErrorToException(e);
     }
@@ -65,7 +80,7 @@ class UseApi {
       final responseData = response.data;
 
       if (responseData == null) {
-        throw _createResponseError(path);
+        throw _responseEmptyError(path);
       }
 
       return fromJson(responseData as Map<String, dynamic>);
@@ -84,7 +99,7 @@ class UseApi {
       final responseData = response.data;
 
       if (responseData == null) {
-        throw _createResponseError(path);
+        throw _responseEmptyError(path);
       }
 
       return fromJson(responseData as Map<String, dynamic>);
@@ -102,7 +117,7 @@ class UseApi {
       final responseData = response.data;
 
       if (responseData == null) {
-        throw _createResponseError(path);
+        throw _responseEmptyError(path);
       }
 
       return fromJson(responseData as Map<String, dynamic>);
@@ -126,7 +141,7 @@ class UseApi {
     }
   }
 
-  DioException _createResponseError(String? path) {
+  DioException _responseEmptyError(String? path) {
     return DioException(
       requestOptions: RequestOptions(path: _constructFullPath(path)),
       type: DioExceptionType.badResponse,
