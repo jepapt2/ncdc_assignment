@@ -6,10 +6,3 @@ List<T> fromJsonList<T>(
       .map((dynamic item) => fromJson(item as Map<String, dynamic>))
       .toList();
 }
-
-List<Map<String, dynamic>> toJsonList<T>(
-  List<T> list,
-  Map<String, dynamic> Function(T item) toJson,
-) {
-  return list.map((item) => toJson(item)).toList();
-}
