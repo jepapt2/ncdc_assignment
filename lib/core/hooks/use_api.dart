@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ncdc_assignment/core/hooks/utils/json_util.dart';
 import '../providers/dio_provider/dio_provider.dart';
 
@@ -9,7 +9,7 @@ class UseApi {
 
   UseApi._(this.basePath, this.dio);
 
-  factory UseApi(WidgetRef ref, String basePath) {
+  factory UseApi(Ref ref, String basePath) {
     return UseApi._(basePath, ref.read(dioProvider));
   }
 
