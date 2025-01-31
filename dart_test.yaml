@@ -2,8 +2,6 @@ concurrency: 1
 reporter: expanded
 pub_get: false
 
-# # テストの実行時間を表示
 verbose-trace: true
 
-# テストの実行順序をファイル名順に固定
 test-randomize-ordering-seed: 0
