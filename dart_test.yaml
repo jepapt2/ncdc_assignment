@@ -1,0 +1,7 @@
+concurrency: 1
+reporter: expanded
+pub_get: false
+
+verbose-trace: true
+
+test-randomize-ordering-seed: 0
