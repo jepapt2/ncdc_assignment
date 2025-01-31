@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ncdc_assignment/core/hooks/utils/json_util.dart';
 import '../providers/dio_provider/dio_provider.dart';
 
 class UseApi {
@@ -64,7 +65,10 @@ class UseApi {
         }
       }
 
-      return data.map((item) => fromJson(item)).toList();
+      return fromJsonList(
+        data.cast<Map<String, dynamic>>(),
+        fromJson,
+      );
     } on DioException catch (e) {
       throw _mapDioErrorToException(e);
     }
