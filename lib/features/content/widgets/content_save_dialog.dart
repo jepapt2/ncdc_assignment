@@ -7,6 +7,7 @@ import 'package:ncdc_assignment/core/utils/toast_helper.dart';
 import 'package:ncdc_assignment/core/widgets/app_svg_icon.dart';
 import 'package:ncdc_assignment/core/widgets/button/fill_action_button.dart';
 import 'package:ncdc_assignment/features/content/models/content/content.dart';
+import 'package:ncdc_assignment/features/content/providers/content_detail_provider/content_detail_provider.dart';
 import 'package:ncdc_assignment/features/content/providers/content_list_provider/content_list_provider.dart';
 import 'package:ncdc_assignment/features/content/providers/editing_states_provider/editing_states_provider.dart';
 import 'package:ncdc_assignment/features/content/utils/content_validation.dart';
@@ -14,18 +15,42 @@ import 'package:ncdc_assignment/features/content/utils/content_validation.dart';
 class ContentSaveDialog extends HookWidget {
   ContentSaveDialog({
     super.key,
-    required this.dialogContext,
+    this.editContent,
   });
 
-  final BuildContext dialogContext;
+  final Content? editContent;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final titleController = useTextEditingController();
+    final titleController = useTextEditingController(text: editContent?.title);
     final textTheme = Theme.of(context).textTheme;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double dialogWidth = screenWidth * 0.8;
+
+    Future<void> handleSave(WidgetRef ref) async {
+      if (!_formKey.currentState!.validate()) return;
+
+      final existingContent = editContent;
+      // 新規作成
+      if (existingContent == null) {
+        final result = await ref
+            .read(contentListProvider.notifier)
+            .create(CreateContentDTO(title: titleController.text));
+        if (result == null || !context.mounted) return;
+        final navigator = Navigator.of(context);
+        navigator.pop(context);
+        context.push('/content/${result.id}');
+        return;
+      }
+      final result = await ref
+          .read(contentDetailProvider(existingContent.id).notifier)
+          .updateContent(CreateContentDTO(title: titleController.text));
+      if (!context.mounted || result == null) return;
+      Navigator.pop(context);
+    }
+
     return SimpleDialog(
         contentPadding: EdgeInsets.all(0),
         titlePadding: EdgeInsets.all(0),
@@ -44,15 +69,10 @@ class ContentSaveDialog extends HookWidget {
                       height: 40,
                       child: TextFormField(
                         maxLines: 1,
+                        maxLength: 100,
                         style: textTheme.bodyMedium,
                         controller: titleController,
-                        validator: (value) {
-                          final error = ContentValidation.validateTitle(value);
-                          if (error != null) {
-                            showToast(error);
-                          }
-                        },
-                        decoration: const InputDecoration(errorMaxLines: 2),
+                        validator: ContentValidation.validateTitle,
                       ),
                     ),
                   ),
@@ -73,13 +93,7 @@ class ContentSaveDialog extends HookWidget {
                         return FillActionButton(
                           isDisabled: isSaveLoading,
                           onPressed: () async {
-                            if (!_formKey.currentState!.validate()) return;
-                            final result = await ref
-                                .read(contentListProvider.notifier)
-                                .create(CreateContentDTO(
-                                    title: titleController.text));
-                            if (result == null || !context.mounted) return;
-                            GoRouter.of(context).push('/content/${result.id}');
+                            await handleSave(ref);
                           },
                           icon: SvgIcon.save,
                           label: 'Save',
