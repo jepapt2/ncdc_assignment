@@ -14,11 +14,6 @@ enum SvgIcon {
   final String name;
 
   String get path => 'assets/svg/$name.svg';
-
-  String get label {
-    final name = this.name;
-    return name.substring(0, 1).toUpperCase() + name.substring(1);
-  }
 }
 
 class AppSvgIcon extends StatelessWidget {
