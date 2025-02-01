@@ -64,4 +64,10 @@ class ContentList extends _$ContentList {
       _isSaveLoadingNotifier.endLoading();
     }
   }
+
+  void updateState(Content content) {
+    state = AsyncValue.data(
+      state.value?.map((e) => e.id == content.id ? content : e).toList() ?? [],
+    );
+  }
 }

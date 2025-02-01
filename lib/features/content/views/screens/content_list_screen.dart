@@ -54,9 +54,7 @@ class ContentListScreen extends StatelessWidget {
                       label: 'New Page',
                       onPressed: () => showDialog(
                         context: context,
-                        builder: (context) => ContentSaveDialog(
-                          dialogContext: context,
-                        ),
+                        builder: (context) => ContentSaveDialog(),
                       ),
                       size: ButtonSize.large,
                       icon: SvgIcon.plus,
