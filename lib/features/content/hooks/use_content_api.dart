@@ -35,10 +35,9 @@ class UseContentApi {
     );
   }
 
-  Future<Content> delete(int id) async {
-    return _api.delete<Content>(
-      path: '$id',
-      fromJson: Content.fromJson,
+  Future<void> delete(int id) async {
+    _api.delete(
+      path: id.toString(),
     );
   }
 }
