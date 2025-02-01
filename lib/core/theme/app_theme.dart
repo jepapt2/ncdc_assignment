@@ -40,6 +40,31 @@ class AppTheme {
       dialogTheme: const DialogTheme(
         backgroundColor: ColorTheme.backgroundLight,
       ),
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: ColorTheme.textLight,
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        filled: true,
+        fillColor: ColorTheme.backgroundWhite,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            gapPadding: 0,
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors.black26,
+              width: 1.0), // Change the color and width as per your need
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: ColorTheme.brand,
+              width: 1.0), // Change the color and width as per your need
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+      ),
     );
   }
 }
