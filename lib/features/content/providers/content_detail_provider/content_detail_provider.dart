@@ -22,16 +22,18 @@ class ContentDetail extends _$ContentDetail {
 
   @override
   Future<Content> build(int id) async {
-    await fetchContent(id);
-    return state.requireValue;
+    return await fetchContent(id);
   }
 
-  Future<void> fetchContent(int id) async {
+  Future<Content> fetchContent(int id) async {
     state = const AsyncValue.loading();
+    late Content result;
     AsyncValue.guard(() async {
-      final content = await _contentApi.get(id);
-      state = AsyncValue.data(content);
+      result = await _contentApi.get(id);
+      state = AsyncValue.data(result);
     });
+
+    return result;
   }
 
   Future<Content?> updateContent(CreateContentDTO content) async {

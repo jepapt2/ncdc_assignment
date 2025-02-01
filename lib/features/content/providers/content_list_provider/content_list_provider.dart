@@ -17,7 +17,7 @@ class ContentList extends _$ContentList {
   @override
   Future<List<Content>> build() async {
     await fetchContents();
-    return state.requireValue;
+    return state.valueOrNull ?? [];
   }
 
   Future<void> fetchContents() async {
