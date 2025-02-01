@@ -31,6 +31,21 @@ class ContentList extends _$ContentList {
     }
   }
 
+  Future<Content?> create(CreateContentDTO dto) async {
+    try {
+      _isSaveLoadingNotifier.startLoading();
+      final result = await _contentApi.create(dto);
+      state = AsyncValue.data([...state.requireValue, result]);
+      return result;
+    } catch (e) {
+      print(e);
+      showToast('作成に失敗しました');
+      return null;
+    } finally {
+      _isSaveLoadingNotifier.endLoading();
+    }
+  }
+
   Future<bool> delete(Content content) async {
     try {
       _isSaveLoadingNotifier.startLoading();
