@@ -112,15 +112,14 @@ void main() {
         (_) async => getMockResponse(data: {'id': 1, 'name': 'deleted'}),
       );
 
-      // Act
       final result = await useApi.delete<Map<String, dynamic>>(
         path: 'test',
         fromJson: (json) => json,
       );
 
       // Assert
-      expect(result['id'], equals(1));
-      expect(result['name'], equals('deleted'));
+      expect(result?['id'], equals(1));
+      expect(result?['name'], equals('deleted'));
       verify(() => mockDio.delete('/test/test')).called(1);
     });
 

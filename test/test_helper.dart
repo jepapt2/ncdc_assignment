@@ -10,7 +10,8 @@ class MockDio extends Mock implements Dio {}
 class MockResponse extends Mock implements Response {}
 
 // ProviderContainerをWidgetRefとして扱うためのラッパー
-class TestWidgetRef implements WidgetRef {
+class TestWidgetRef implements Ref {
+  @override
   final ProviderContainer container;
 
   TestWidgetRef(this.container);

@@ -1,14 +1,14 @@
 import '../models/content/content.dart';
 import '../../../core/hooks/use_api.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UseContentApi {
   final UseApi _api;
 
-  UseContentApi(WidgetRef ref) : _api = UseApi(ref, '/content');
+  UseContentApi(Ref ref) : _api = UseApi(ref, '/content');
 
   Future<List<Content>> getList() async {
-    return _api.getList<Content>(
+    return _api.getList(
       fromJson: Content.fromJson,
     );
   }
@@ -35,10 +35,9 @@ class UseContentApi {
     );
   }
 
-  Future<Content> delete(int id) async {
-    return _api.delete<Content>(
-      path: '$id',
-      fromJson: Content.fromJson,
+  Future<void> delete(int id) async {
+    _api.delete(
+      path: id.toString(),
     );
   }
 }

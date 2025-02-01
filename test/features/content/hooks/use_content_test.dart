@@ -77,12 +77,14 @@ void main() {
 
     test('delete: 正常系 - コンテンツを削除できる', () async {
       when(() => mockDio.delete(any())).thenAnswer(
-        (_) async => getMockResponse(data: ContentFactory.create().toJson()),
+        (_) async => getMockResponse(data: null),
       );
 
-      final result = await useContentApi.delete(1);
+      await expectLater(
+        () => useContentApi.delete(1),
+        returnsNormally,
+      );
 
-      expect(result.id, equals(1));
       verify(() => mockDio.delete('/content/1')).called(1);
     });
   });
