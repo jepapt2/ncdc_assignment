@@ -10,18 +10,22 @@ class AppTheme {
       titleMedium: GoogleFonts.notoSansJp(
         fontSize: 24,
         fontWeight: FontWeight.bold,
+        color: ColorTheme.textRegular,
       ),
       // bodyテキスト
       bodyMedium: GoogleFonts.notoSansJp(
         fontSize: 16,
+        color: ColorTheme.textRegular,
       ),
       // キャプション
       bodySmall: GoogleFonts.notoSansJp(
         fontSize: 12,
+        color: ColorTheme.textRegular,
       ),
       // ミニテキスト
       labelSmall: GoogleFonts.notoSansJp(
         fontSize: 10,
+        color: ColorTheme.textRegular,
       ),
     );
 
@@ -32,6 +36,9 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         scrolledUnderElevation: 0,
         centerTitle: false,
+      ),
+      dialogTheme: const DialogTheme(
+        backgroundColor: ColorTheme.backgroundLight,
       ),
     );
   }

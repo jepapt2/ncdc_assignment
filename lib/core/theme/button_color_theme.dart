@@ -13,6 +13,7 @@ abstract class FillButtonColorTheme {
   Color get pressedBackgroundColor;
   Color get disabledBackgroundColor;
   Color get foregroundColor;
+  Color get hoverBackgroundColor;
 }
 
 class BrandButtonColorTheme extends FillButtonColorTheme {
@@ -20,6 +21,8 @@ class BrandButtonColorTheme extends FillButtonColorTheme {
 
   @override
   Color get backgroundColor => ColorTheme.brand;
+  @override
+  Color get hoverBackgroundColor => const Color(0xFF3C8EC4);
   @override
   Color get pressedBackgroundColor => const Color(0xFF347CAB);
   @override
@@ -33,6 +36,8 @@ class NormalButtonColorTheme extends FillButtonColorTheme {
 
   @override
   Color get backgroundColor => const Color(0xFFB3B3B3);
+  @override
+  Color get hoverBackgroundColor => const Color(0xFFCCCCCC);
   @override
   Color get pressedBackgroundColor => const Color(0xFF808080);
   @override
