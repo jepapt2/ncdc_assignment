@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ncdc_assignment/core/theme/color_theme.dart';
 import 'package:ncdc_assignment/core/widgets/app_svg_icon.dart';
@@ -12,11 +13,9 @@ class ContentListTile extends HookConsumerWidget {
   const ContentListTile({
     super.key,
     required this.content,
-    required this.onTap,
   });
 
   final Content content;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,8 +29,14 @@ class ContentListTile extends HookConsumerWidget {
       highlightColor: ColorTheme.backgroundLight,
       splashColor: ColorTheme.backgroundLight,
       onTap: () {
+        context.pushNamed('contentDetail',
+            pathParameters: {'id': content.id.toString()});
+      },
+      onTapDown: (details) {
         isPressed.value = true;
-        onTap();
+      },
+      onTapUp: (details) {
+        isPressed.value = false;
       },
       onTapCancel: () {
         isPressed.value = false;

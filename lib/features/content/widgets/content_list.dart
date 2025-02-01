@@ -14,6 +14,7 @@ class ContentList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final contentListState = ref.watch(contentListProvider);
     final contentListNotifier = ref.read(contentListProvider.notifier);
+    final textTheme = Theme.of(context).textTheme;
 
     return RefreshIndicator(
       color: ColorTheme.brand,
@@ -34,19 +35,19 @@ class ContentList extends HookConsumerWidget {
                     color: Colors.grey,
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'コンテンツがありません',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
+                    style: textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: () {
                       contentListNotifier.fetchContents();
                     },
-                    child: const Text('再読み込み'),
+                    child: Text(
+                      '再読み込み',
+                      style: textTheme.bodyMedium,
+                    ),
                   ),
                 ],
               ),
@@ -60,9 +61,6 @@ class ContentList extends HookConsumerWidget {
               final content = contents[index];
               return ContentListTile(
                 content: content,
-                onTap: () {
-                  print('tap');
-                },
               );
             },
           );
