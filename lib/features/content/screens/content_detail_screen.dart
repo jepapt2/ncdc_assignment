@@ -6,6 +6,7 @@ import 'package:ncdc_assignment/core/theme/color_theme.dart';
 import 'package:ncdc_assignment/core/widgets/app_svg_icon.dart';
 import 'package:ncdc_assignment/core/widgets/button/fill_action_button.dart';
 import 'package:ncdc_assignment/core/widgets/skeleton_text.dart';
+import 'package:ncdc_assignment/core/widgets/skeleton_text_lines.dart';
 import 'package:ncdc_assignment/features/content/models/content/content.dart';
 import 'package:ncdc_assignment/features/content/providers/content_detail_provider/content_detail_provider.dart';
 import 'package:ncdc_assignment/features/content/providers/editing_states_provider/editing_states_provider.dart';
@@ -84,7 +85,11 @@ class ContentDetailScreen extends HookConsumerWidget {
             ),
           ],
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.all(30),
+          child: SkeletonTextLines(),
+        ),
         error: (error, stackTrace) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
