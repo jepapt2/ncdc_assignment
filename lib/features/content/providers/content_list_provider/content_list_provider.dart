@@ -1,39 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:ncdc_assignment/core/utils/toast_helper.dart';
 import 'package:ncdc_assignment/features/content/hooks/use_content_api.dart';
 import 'package:ncdc_assignment/features/content/models/content/content.dart';
+import 'package:ncdc_assignment/features/content/providers/editing_states_provider/editing_states_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'content_list_provider.g.dart';
 
 @riverpod
-class ContentListNotifier extends _$ContentListNotifier {
+class ContentList extends _$ContentList {
   UseContentApi get _contentApi => UseContentApi(ref);
+
+  IsSaveLoading get _isSaveLoadingNotifier =>
+      ref.read(isSaveLoadingProvider.notifier);
 
   @override
   Future<List<Content>> build() async {
-    await _fetchContents();
+    await fetchContents();
     return state.requireValue;
   }
 
-  Future<void> _fetchContents() async {
+  Future<void> fetchContents() async {
     state = const AsyncValue.loading();
     try {
       final contents = await _contentApi.getList();
       state = AsyncValue.data(contents);
     } catch (e) {
+      print(e);
       state = AsyncValue.error(e, StackTrace.current);
     }
   }
 
-  Future<void> refresh() async {
-    await _fetchContents();
-  }
-
-  Future<void> delete(int id) async {
+  Future<bool> delete(Content content) async {
     try {
-      await _contentApi.delete(id);
-      await _fetchContents();
+      _isSaveLoadingNotifier.startLoading();
+      await _contentApi.delete(content.id).then((_) {
+        state = AsyncValue.data(
+          state.value?.where((element) => element.id != content.id).toList() ??
+              [],
+        );
+      });
+      return true;
     } catch (e) {
-      state = AsyncValue.error(e, StackTrace.current);
+      print(e);
+      showToast('削除に失敗しました');
+      return false;
+    } finally {
+      _isSaveLoadingNotifier.endLoading();
     }
   }
 }
