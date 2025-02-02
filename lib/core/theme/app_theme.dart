@@ -8,7 +8,7 @@ class AppTheme {
     final textTheme = GoogleFonts.notoSansJpTextTheme(baseTextTheme).copyWith(
       // 見出し
       titleMedium: GoogleFonts.notoSansJp(
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
         color: ColorTheme.textRegular,
       ),
@@ -48,8 +48,7 @@ class AppTheme {
         fillColor: ColorTheme.backgroundWhite,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            gapPadding: 0,
+            borderSide: BorderSide(color: Colors.black26, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(8))),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -63,6 +62,15 @@ class AppTheme {
               width: 1.0), // Change the color and width as per your need
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: ColorTheme.brand,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        errorStyle: TextStyle(fontSize: 0),
+        counterStyle: TextStyle(fontSize: 0),
         contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
       ),
     );

@@ -17,18 +17,14 @@ class ContentList extends _$ContentList {
   @override
   Future<List<Content>> build() async {
     await fetchContents();
-    return state.requireValue;
+    return state.valueOrNull ?? [];
   }
 
   Future<void> fetchContents() async {
     state = const AsyncValue.loading();
-    try {
-      final contents = await _contentApi.getList();
-      state = AsyncValue.data(contents);
-    } catch (e) {
-      print(e);
-      state = AsyncValue.error(e, StackTrace.current);
-    }
+    state = await AsyncValue.guard(() async {
+      return await _contentApi.getList();
+    });
   }
 
   Future<Content?> create(CreateContentDTO dto) async {
@@ -63,5 +59,11 @@ class ContentList extends _$ContentList {
     } finally {
       _isSaveLoadingNotifier.endLoading();
     }
+  }
+
+  void updateState(Content content) {
+    state = AsyncValue.data(
+      state.value?.map((e) => e.id == content.id ? content : e).toList() ?? [],
+    );
   }
 }
