@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:ncdc_assignment/core/providers/dio_provider/dio_provider.dart';
+import 'package:flutter/services.dart';
 
 class MockDio extends Mock implements Dio {}
 
@@ -49,13 +50,24 @@ Future<void> setupTestEnv() async {
       rethrow;
     }
   }
+
+  // トーストのモックを設定
+  const channel = MethodChannel('PonnamKarthik/fluttertoast');
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(
+    channel,
+    (MethodCall methodCall) async {
+      return null;
+    },
+  );
 }
 
 // モックコンテナの作成
 ProviderContainer createMockContainer({required MockDio mockDio}) {
-  return ProviderContainer(
+  final container = ProviderContainer(
     overrides: [
       dioProvider.overrideWithValue(mockDio),
     ],
   );
+  return container;
 }
