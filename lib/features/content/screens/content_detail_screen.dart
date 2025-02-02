@@ -34,9 +34,12 @@ class ContentDetailScreen extends HookConsumerWidget {
     final bodyFormKey = GlobalKey<FormFieldState>();
 
     // contentStateが変更されたらbodyControllerの値を更新
-    if (contentState.hasValue && contentState.value != null) {
-      bodyController.text = contentState.value?.body ?? '';
-    }
+    useEffect(() {
+      if (contentState.hasValue) {
+        bodyController.text = contentState.value?.body ?? '';
+      }
+      return null;
+    }, [contentState]);
 
     return Scaffold(
       appBar: AppBar(
