@@ -22,13 +22,9 @@ class ContentList extends _$ContentList {
 
   Future<void> fetchContents() async {
     state = const AsyncValue.loading();
-    try {
-      final contents = await _contentApi.getList();
-      state = AsyncValue.data(contents);
-    } catch (e) {
-      print(e);
-      state = AsyncValue.error(e, StackTrace.current);
-    }
+    state = await AsyncValue.guard(() async {
+      return await _contentApi.getList();
+    });
   }
 
   Future<Content?> create(CreateContentDTO dto) async {

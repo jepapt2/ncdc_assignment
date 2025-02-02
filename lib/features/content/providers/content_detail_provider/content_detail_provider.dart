@@ -28,9 +28,9 @@ class ContentDetail extends _$ContentDetail {
   Future<Content> fetchContent(int id) async {
     state = const AsyncValue.loading();
     late Content result;
-    AsyncValue.guard(() async {
+    state = await AsyncValue.guard(() async {
       result = await _contentApi.get(id);
-      state = AsyncValue.data(result);
+      return result;
     });
 
     return result;
