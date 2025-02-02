@@ -50,14 +50,13 @@ class ContentList extends _$ContentList {
   Future<bool> delete(Content content) async {
     try {
       _isSaveLoadingNotifier.startLoading();
-      await _contentApi.delete(content.id).then((_) {
-        state = AsyncValue.data(
-          state.value?.where((element) => element.id != content.id).toList() ??
-              [],
-        );
-      });
+      await _contentApi.delete(content.id);
+      state = AsyncValue.data(
+        state.value?.where((element) => element.id != content.id).toList() ??
+            [],
+      );
       return true;
-    } catch (e) {
+    } on Exception catch (e) {
       logger.e(e);
       showToast('削除に失敗しました');
       return false;
