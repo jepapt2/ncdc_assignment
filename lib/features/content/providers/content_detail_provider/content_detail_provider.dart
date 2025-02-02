@@ -1,3 +1,4 @@
+import 'package:logger/web.dart';
 import 'package:ncdc_assignment/core/utils/toast_helper.dart';
 import 'package:ncdc_assignment/features/content/hooks/use_content_api.dart';
 import 'package:ncdc_assignment/features/content/models/content/content.dart';
@@ -20,6 +21,8 @@ class ContentDetail extends _$ContentDetail {
   ContentList get _contentListProviderNotifier =>
       ref.read(contentListProvider.notifier);
 
+  final logger = Logger();
+
   @override
   Future<Content> build(int id) async {
     return await fetchContent(id);
@@ -31,6 +34,9 @@ class ContentDetail extends _$ContentDetail {
     state = await AsyncValue.guard(() async {
       result = await _contentApi.get(id);
       return result;
+    }, (err) {
+      logger.e(err);
+      return false;
     });
 
     return result;
@@ -52,7 +58,7 @@ class ContentDetail extends _$ContentDetail {
       _isEditingNotifier.endEditing();
       return result;
     } catch (e) {
-      print(e);
+      logger.e(e);
       showToast('更新に失敗しました');
       return null;
     } finally {

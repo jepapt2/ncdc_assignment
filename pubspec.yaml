@@ -21,6 +21,7 @@ dependencies:
   shimmer: ^3.0.0
   flutter_svg: ^2.0.10
   fluttertoast: ^8.2.10
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:

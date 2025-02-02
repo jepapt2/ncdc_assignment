@@ -122,7 +122,7 @@ class UseApi {
       if (fromJson != null && responseData != null) {
         return fromJson(responseData as Map<String, dynamic>);
       }
-      return null;
+      return responseData;
     } on DioException catch (e) {
       throw _mapDioErrorToException(e);
     }

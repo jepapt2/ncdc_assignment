@@ -123,6 +123,19 @@ void main() {
       verify(() => mockDio.delete('/test/test')).called(1);
     });
 
+    test('delete: 異常系 - 削除に失敗した場合はthrow', () async {
+      // Arrange
+      when(() => mockDio.delete(any())).thenThrow(
+        Exception('削除エラー'),
+      );
+
+      // Act & Assert
+      expect(
+        () => useApi.delete(path: 'test'),
+        throwsA(isA<Exception>()),
+      );
+    });
+
     test('get: 異常系 - レスポンスがnullの場合、エラーをスローする', () async {
       // Arrange
       when(() => mockDio.get(any())).thenAnswer(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:ncdc_assignment/core/utils/toast_helper.dart';
 import 'package:ncdc_assignment/features/content/hooks/use_content_api.dart';
 import 'package:ncdc_assignment/features/content/models/content/content.dart';
@@ -14,6 +15,7 @@ class ContentList extends _$ContentList {
   IsSaveLoading get _isSaveLoadingNotifier =>
       ref.read(isSaveLoadingProvider.notifier);
 
+  final logger = Logger();
   @override
   Future<List<Content>> build() async {
     await fetchContents();
@@ -24,6 +26,9 @@ class ContentList extends _$ContentList {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return await _contentApi.getList();
+    }, (err) {
+      logger.e(err);
+      return false;
     });
   }
 
@@ -34,7 +39,7 @@ class ContentList extends _$ContentList {
       state = AsyncValue.data([...state.requireValue, result]);
       return result;
     } catch (e) {
-      print(e);
+      logger.e(e);
       showToast('作成に失敗しました');
       return null;
     } finally {
@@ -45,15 +50,14 @@ class ContentList extends _$ContentList {
   Future<bool> delete(Content content) async {
     try {
       _isSaveLoadingNotifier.startLoading();
-      await _contentApi.delete(content.id).then((_) {
-        state = AsyncValue.data(
-          state.value?.where((element) => element.id != content.id).toList() ??
-              [],
-        );
-      });
+      await _contentApi.delete(content.id);
+      state = AsyncValue.data(
+        state.value?.where((element) => element.id != content.id).toList() ??
+            [],
+      );
       return true;
-    } catch (e) {
-      print(e);
+    } on Exception catch (e) {
+      logger.e(e);
       showToast('削除に失敗しました');
       return false;
     } finally {
